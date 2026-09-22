@@ -1,0 +1,822 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Для Яны ❤️</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            overflow: hidden;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Arial,
+                sans-serif;
+
+            background:
+                radial-gradient(
+                    circle at 50% 35%,
+                    #fff7fb 0%,
+                    #ffe0ec 35%,
+                    #ffb4cf 70%,
+                    #ff91b8 100%
+                );
+
+            color: #8a2850;
+        }
+
+
+        /* Светящиеся круги на фоне */
+
+        body::before,
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            width: 350px;
+            height: 350px;
+
+            border-radius: 50%;
+
+            background: rgba(255,255,255,0.18);
+
+            filter: blur(50px);
+
+            animation: moveGlow 8s infinite alternate ease-in-out;
+
+            pointer-events: none;
+        }
+
+
+        body::before {
+            top: -100px;
+            left: -100px;
+        }
+
+
+        body::after {
+            right: -100px;
+            bottom: -100px;
+
+            animation-delay: 2s;
+        }
+
+
+        .container {
+
+            position: relative;
+
+            width: min(90%, 650px);
+
+            text-align: center;
+
+            z-index: 10;
+        }
+
+
+        /* ПЕРВЫЙ ЭКРАН */
+
+        .start {
+
+            animation: startAppear 1.2s ease;
+        }
+
+
+        .small-text {
+
+            font-size: 22px;
+
+            margin-bottom: 30px;
+
+            color: #8d3b5c;
+
+            letter-spacing: 0.5px;
+        }
+
+
+        .heart-button {
+
+            border: none;
+
+            background: transparent;
+
+            cursor: pointer;
+
+            font-size: 140px;
+
+            line-height: 1;
+
+            padding: 0;
+
+            filter:
+                drop-shadow(
+                    0 15px 25px
+                    rgba(150, 25, 80, 0.25)
+                );
+
+            animation: heartbeat 1.4s infinite;
+
+            transition:
+                transform 0.25s ease;
+        }
+
+
+        .heart-button:hover {
+
+            transform: scale(1.12);
+        }
+
+
+        .heart-button:active {
+
+            transform: scale(0.9);
+        }
+
+
+        .hint {
+
+            margin-top: 25px;
+
+            font-size: 15px;
+
+            opacity: 0.65;
+
+            animation: hintPulse 2s infinite;
+        }
+
+
+        /* ПОЗДРАВЛЕНИЕ */
+
+        .message {
+
+            display: none;
+
+            opacity: 0;
+
+            transform: translateY(40px) scale(0.9);
+        }
+
+
+        .message.show {
+
+            display: block;
+
+            animation:
+                messageAppear
+                1.3s
+                cubic-bezier(.2,.8,.2,1)
+                forwards;
+        }
+
+
+        .card {
+
+            padding: 45px 35px;
+
+            border-radius: 30px;
+
+            background:
+                rgba(255,255,255,0.55);
+
+            border:
+                1px solid
+                rgba(255,255,255,0.75);
+
+            box-shadow:
+                0 25px 70px
+                rgba(140, 30, 80, 0.18);
+
+            backdrop-filter: blur(12px);
+
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+
+        .emoji {
+
+            font-size: 55px;
+
+            margin-bottom: 10px;
+
+            animation: bounce 2s infinite;
+        }
+
+
+        h1 {
+
+            margin: 0 0 22px;
+
+            font-size:
+                clamp(36px, 8vw, 58px);
+
+            color: #b82f63;
+
+            line-height: 1.1;
+
+            text-shadow:
+                0 4px 15px
+                rgba(255,255,255,0.8);
+        }
+
+
+        .text {
+
+            margin: 0;
+
+            font-size:
+                clamp(19px, 4vw, 25px);
+
+            line-height: 1.55;
+
+            color: #713047;
+        }
+
+
+        .signature {
+
+            margin-top: 30px;
+
+            font-size: 17px;
+
+            color: #9a526d;
+
+            opacity: 0.85;
+        }
+
+
+        /* ЛЕТЯЩИЕ СЕРДЕЧКИ */
+
+        .floating-heart {
+
+            position: fixed;
+
+            bottom: -60px;
+
+            pointer-events: none;
+
+            z-index: 3;
+
+            user-select: none;
+
+            animation:
+                floatUp
+                linear
+                forwards;
+        }
+
+
+        /* БЛЕСТКИ */
+
+        .sparkle {
+
+            position: fixed;
+
+            pointer-events: none;
+
+            z-index: 4;
+
+            animation:
+                sparkleAnimation
+                1.5s
+                ease-out
+                forwards;
+        }
+
+
+        /* АНИМАЦИИ */
+
+        @keyframes heartbeat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.13);
+            }
+        }
+
+
+        @keyframes startAppear {
+
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+
+        @keyframes hintPulse {
+
+            0%,
+            100% {
+                opacity: 0.5;
+            }
+
+            50% {
+                opacity: 0.9;
+            }
+        }
+
+
+        @keyframes messageAppear {
+
+            to {
+                opacity: 1;
+
+                transform:
+                    translateY(0)
+                    scale(1);
+            }
+        }
+
+
+        @keyframes floatUp {
+
+            0% {
+
+                transform:
+                    translateY(0)
+                    rotate(0deg)
+                    scale(0.7);
+
+                opacity: 0;
+            }
+
+            10% {
+
+                opacity: 1;
+            }
+
+            100% {
+
+                transform:
+                    translateY(-115vh)
+                    rotate(30deg)
+                    scale(1.2);
+
+                opacity: 0;
+            }
+        }
+
+
+        @keyframes sparkleAnimation {
+
+            0% {
+
+                transform:
+                    scale(0)
+                    rotate(0deg);
+
+                opacity: 0;
+            }
+
+            30% {
+
+                transform:
+                    scale(1.2)
+                    rotate(90deg);
+
+                opacity: 1;
+            }
+
+            100% {
+
+                transform:
+                    scale(0)
+                    rotate(180deg)
+                    translateY(-40px);
+
+                opacity: 0;
+            }
+        }
+
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-8px);
+            }
+        }
+
+
+        @keyframes moveGlow {
+
+            from {
+                transform: translate(0,0);
+            }
+
+            to {
+                transform: translate(80px,50px);
+            }
+        }
+
+
+        /* ТЕЛЕФОН */
+
+        @media (max-width: 600px) {
+
+            .small-text {
+                font-size: 18px;
+            }
+
+
+            .heart-button {
+                font-size: 105px;
+            }
+
+
+            .card {
+
+                padding:
+                    35px
+                    22px;
+
+                border-radius: 25px;
+            }
+
+
+            .emoji {
+                font-size: 45px;
+            }
+
+
+            .signature {
+                font-size: 15px;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+    <div class="container">
+
+
+        <!-- ПЕРВЫЙ ЭКРАН -->
+
+        <div
+            class="start"
+            id="start"
+        >
+
+            <div class="small-text">
+
+                У меня есть маленький
+                сюрприз для тебя...
+
+            </div>
+
+
+            <button
+                class="heart-button"
+                id="heartButton"
+                aria-label="Открыть поздравление"
+            >
+
+                ❤️
+
+            </button>
+
+
+            <div class="hint">
+
+                нажми на сердечко ✨
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ПОЗДРАВЛЕНИЕ -->
+
+        <div
+            class="message"
+            id="message"
+        >
+
+            <div class="card">
+
+
+                <div class="emoji">
+
+                    🎂
+
+                </div>
+
+
+                <h1>
+
+                    С днём рождения,
+                    Яна! ❤️
+
+                </h1>
+
+
+                <p class="text">
+
+                    Самой лучшей девушке —
+                    <br>
+
+                    побольше улыбок,
+                    счастья
+                    <br>
+
+                    и самых тёплых
+                    моментов! 🥰
+
+                </p>
+
+
+                <div class="signature">
+
+                    Это маленький сюрприз
+                    только для тебя 💗
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+
+
+        const heartButton =
+            document.getElementById(
+                "heartButton"
+            );
+
+
+        const start =
+            document.getElementById(
+                "start"
+            );
+
+
+        const message =
+            document.getElementById(
+                "message"
+            );
+
+
+        let opened = false;
+
+
+
+        /* СОЗДАНИЕ СЕРДЕЧКА */
+
+        function createHeart() {
+
+
+            const heart =
+                document.createElement(
+                    "div"
+                );
+
+
+            heart.className =
+                "floating-heart";
+
+
+            const hearts = [
+
+                "❤️",
+                "💗",
+                "💕",
+                "💖",
+                "💘",
+                "💓"
+
+            ];
+
+
+            heart.innerText =
+                hearts[
+                    Math.floor(
+                        Math.random()
+                        *
+                        hearts.length
+                    )
+                ];
+
+
+            heart.style.left =
+                Math.random() * 100
+                + "vw";
+
+
+            heart.style.fontSize =
+                (18 +
+                Math.random() * 35)
+                + "px";
+
+
+            heart.style.animationDuration =
+                (4 +
+                Math.random() * 5)
+                + "s";
+
+
+            document.body.appendChild(
+                heart
+            );
+
+
+            setTimeout(
+                () => heart.remove(),
+                10000
+            );
+
+        }
+
+
+
+        /* СОЗДАНИЕ БЛЕСТКА */
+
+        function createSparkle() {
+
+
+            const sparkle =
+                document.createElement(
+                    "div"
+                );
+
+
+            sparkle.className =
+                "sparkle";
+
+
+            sparkle.innerText =
+                ["✨", "✦", "💫"][
+                    Math.floor(
+                        Math.random() * 3
+                    )
+                ];
+
+
+            sparkle.style.left =
+                Math.random() * 100
+                + "vw";
+
+
+            sparkle.style.top =
+                Math.random() * 100
+                + "vh";
+
+
+            sparkle.style.fontSize =
+                (15 +
+                Math.random() * 20)
+                + "px";
+
+
+            document.body.appendChild(
+                sparkle
+            );
+
+
+            setTimeout(
+                () => sparkle.remove(),
+                1600
+            );
+
+        }
+
+
+
+        /* НАЖАТИЕ НА СЕРДЦЕ */
+
+        heartButton.addEventListener(
+            "click",
+            () => {
+
+
+                if (opened) return;
+
+
+                opened = true;
+
+
+                /* Убираем первый экран */
+
+                start.style.transition =
+                    "all 0.7s ease";
+
+
+                start.style.opacity =
+                    "0";
+
+
+                start.style.transform =
+                    "scale(0.7)";
+
+
+                setTimeout(
+                    () => {
+
+                        start.style.display =
+                            "none";
+
+                        message.classList.add(
+                            "show"
+                        );
+
+                    },
+                    650
+                );
+
+
+                /* Большой взрыв сердечек */
+
+                for (
+                    let i = 0;
+                    i < 45;
+                    i++
+                ) {
+
+                    setTimeout(
+                        createHeart,
+                        i * 60
+                    );
+
+                }
+
+
+                /* Блёстки */
+
+                for (
+                    let i = 0;
+                    i < 25;
+                    i++
+                ) {
+
+                    setTimeout(
+                        createSparkle,
+                        i * 80
+                    );
+
+                }
+
+
+                /* Постоянные сердечки */
+
+                setInterval(
+                    createHeart,
+                    700
+                );
+
+
+                /* Постоянные блёстки */
+
+                setInterval(
+                    createSparkle,
+                    1400
+                );
+
+            }
+        );
+
+    </script>
+
+</body>
+</html>
